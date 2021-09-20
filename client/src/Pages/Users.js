@@ -10,25 +10,6 @@ import useAxiosOnMount from "../Components/useAxiosOnMount";
 export default function Users(props) {
   const { data: users, setData: setUsers, loading, error} = useAxiosOnMount("/api/users");
 
-  const addUsers = async (user) =>{
-    try{
-      let res = await axios.post("/api/users", user);
-      setUsers([res.data, ...users])
-    }catch(err){
-      console.log(err);
-    };
-  };
-
-  const updateUsers = async (user) =>{
-    try {
-      let res = await axios.put(`/api/users/${user.id}`, user);
-      let newUsers = users.map((u) => (u.id === user.id ? user: u));
-      setUsers(newUsers)
-    } catch (err) {
-      console.log(err)
-    };
-  };
-
   const deleteUsers = async (id) => {
     try {
       await axios.delete(`/api/users/${id}`)
