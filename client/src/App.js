@@ -6,6 +6,7 @@ import Home from './Pages/Home.js';
 import Doctors from './Pages/Doctors';
 import Users from './Pages/Users';
 import Appointments from './Pages/Appointment';
+import newAppointments from './Pages/NewAppointments';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
        <Route exact path="/doctors" component={Doctors} />
        <Route exact path="/users" component={Users} />
        <Route exact path="/appointments" component={Appointments} />
+       <Route exact path="/appointments/new" component={newAppointments} />
        <Route component={() => <p>react router 404 path not found</p>} />
       </Switch>
    </Container>

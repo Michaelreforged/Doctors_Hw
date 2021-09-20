@@ -11,11 +11,12 @@ Appointment.destroy_all
 Doctor.destroy_all
 User.destroy_all
 
-doctors = Doctor.create([{name:"Dr. Thomas Wayne"},
+doctors = Doctor.create(
+[{name:"Dr. Thomas Wayne"},
 {name:"Dr. Jane Doe"},
 {name:"Dr. Stephen Strange"}])
 
-3.times do |i|
+30.times do |i|
   user = User.create(name: Faker::Name.name)
   Appointment.create(date: Faker::Time.forward(days: 30, period: :afternoon), desc: "Regular Check up" ,user_id: user.id, doctor_id: doctors[0].id)
   Appointment.create(date: Faker::Time.forward(days: 30, period: :morning), desc: "Dental Check up" ,user_id: user.id, doctor_id: doctors[1].id)

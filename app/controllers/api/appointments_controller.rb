@@ -10,6 +10,12 @@ class Api::AppointmentsController < ApplicationController
   end
 
   def create
+    @appointment = Appointment.new(appoint_params)
+    if(@appointment.save)
+      render json: @appointment
+    else
+      render json: {error: @appointment.errors}, status: 422
+    end
   end
 
   def update
@@ -25,6 +31,6 @@ class Api::AppointmentsController < ApplicationController
     @appoint = Appointment.find(params[:id])
   end
   def appoint_params
-    params.require(:appointment).permit(:desc, :date, :appoint_id, :doctor_id)
+    params.require(:appointment).permit(:desc, :date, :user_id, :doctor_id)
   end
 end

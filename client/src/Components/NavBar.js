@@ -15,11 +15,6 @@ class NavBar extends React.Component {
                     Home
                   </Menu.Item >
                 </Link>
-                <Link to='/appointments'>
-                  <Menu.Item active={location.pathname === '/appointments'} >
-                    Appointments  
-                 </Menu.Item >
-                </Link>
                 <Link to='/doctors'>
                   <Menu.Item active={location.pathname === '/doctors'} >
                     Doctors  
@@ -28,6 +23,16 @@ class NavBar extends React.Component {
                 <Link to='/users'>
                   <Menu.Item active={location.pathname === '/users'} >
                     Users  
+                 </Menu.Item >
+                </Link>
+                <Link to='/appointments'>
+                  <Menu.Item active={location.pathname === '/appointments'} >
+                    Appointments  
+                 </Menu.Item >
+                </Link>
+                <Link to='/appointments/new'>
+                  <Menu.Item active={location.pathname === '/appointments/new'} >
+                    New Appointments  
                  </Menu.Item >
                 </Link>
             </Menu>
