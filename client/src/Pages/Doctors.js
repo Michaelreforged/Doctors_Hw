@@ -1,5 +1,7 @@
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
+import { Button } from "semantic-ui-react";
 import Cards from "../Components/Cards";
 import ErrorMsg from "../Components/ErrorMsg";
 import LoadingIndicator from "../Components/LoadingIndicator";
@@ -8,6 +10,25 @@ import useAxiosOnMount from "../Components/useAxiosOnMount";
 export default function Doctors(props) {
   const { data: doctors, setData: setDoctors, loading, error} = useAxiosOnMount("/api/doctors");
   
+  const addDoctors = async (doctor) =>{
+    try{
+      let res = await axios.post("/api/doctors", doctor);
+      setDoctors([res.data, ...doctors])
+    }catch(err){
+      console.log(err);
+    };
+  };
+
+  const updateDoctors = async (doctor) =>{
+    try {
+      let res = await axios.put(`/api/doctors/${doctor.id}`, doctor);
+      let newDoctors = doctors.map((d) => (d.id === doctor.id ? doctor: d));
+      setDoctors(newDoctors)
+    } catch (err) {
+      console.log(err)
+    };
+  };
+
   const deleteDoctors = async (id) => {
     try {
       await axios.delete(`/api/doctors/${id}`)
@@ -49,6 +70,11 @@ export default function Doctors(props) {
   return (
     <div>
       <h1>Doctors</h1>
+      <Link to={`/doctors/new`}>
+            <Button color="green">
+              New
+            </Button>
+      </Link>
       {renderDoctors()}
     </div>
   );

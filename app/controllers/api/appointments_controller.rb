@@ -19,6 +19,11 @@ class Api::AppointmentsController < ApplicationController
   end
 
   def update
+    if @appointment.update(appoint_params)
+      render json: @appointment
+    else
+      render json: {errors: @appointment.errors}, status: 422
+    end
   end
 
   def destroy

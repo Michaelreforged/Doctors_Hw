@@ -1,8 +1,10 @@
 import { Button, ButtonGroup, Card } from "semantic-ui-react";
 import Appointments from "../Pages/Appointment";
 import { dayOfWeek, month } from "./DateFormat";
+import { Link } from "react-router-dom";
 
-const Cards = ({data, loc, del, update}) => {
+
+const Cards = ({data, loc, del}) => {
 
   if(loc === "appointment"){
     const date = new Date(data.date);
@@ -38,14 +40,16 @@ const Cards = ({data, loc, del, update}) => {
         </Card.Description>
        </Card.Content>
       <Card.Content extra>
-        <ButtonGroup fluid>
-          <Button color='green'>
-            Edit
-          </Button>
+        <Button.Group fluid>
+          <Link to={`/users/${data.id}/edit`}>
+            <Button color="green">
+              Edit
+            </Button>
+          </Link>
           <Button onClick={() => del(data.id)} color='red'>
             Delete
           </Button>
-        </ButtonGroup>
+        </Button.Group>
       </Card.Content>
     </Card>    )
   }
@@ -61,9 +65,11 @@ const Cards = ({data, loc, del, update}) => {
        </Card.Content>
       <Card.Content extra>
         <ButtonGroup fluid>
-          <Button color='green'>
-            Edit
-          </Button>
+          <Link to={`/doctors/${data.id}/edit`}>
+            <Button color="green">
+              Edit
+            </Button>
+          </Link>
           <Button onClick={() => del(data.id)} color='red'>
             Delete
           </Button>
