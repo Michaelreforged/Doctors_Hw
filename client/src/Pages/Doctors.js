@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import Cards from "../Components/Cards";
 import ErrorMsg from "../Components/ErrorMsg";
@@ -5,7 +6,17 @@ import LoadingIndicator from "../Components/LoadingIndicator";
 import useAxiosOnMount from "../Components/useAxiosOnMount";
 
 export default function Doctors(props) {
-  const { data: doctors, loading, error} = useAxiosOnMount("/api/doctors");
+  const { data: doctors, setData: setDoctors, loading, error} = useAxiosOnMount("/api/doctors");
+  
+  const deleteDoctors = async (id) => {
+    try {
+      await axios.delete(`/api/doctors/${id}`)
+      const newDoctors = doctors.filter((d)=>(d.id !== id))
+      setDoctors(newDoctors)
+    } catch (error) {
+      
+    }
+  }
 
   const renderDoctors = () => {
   if (loading){
@@ -26,6 +37,7 @@ export default function Doctors(props) {
     data = {d}
     key = {d.id}
     loc = "doctors"
+    del = {deleteDoctors}
     />
     )
   })

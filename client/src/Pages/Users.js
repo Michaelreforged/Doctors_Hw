@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import Cards from "../Components/Cards";
 import ErrorMsg from "../Components/ErrorMsg";
@@ -5,7 +6,18 @@ import LoadingIndicator from "../Components/LoadingIndicator";
 import useAxiosOnMount from "../Components/useAxiosOnMount";
 
 export default function Users(props) {
-  const { data: users, loading, error} = useAxiosOnMount("/api/users");
+  const { data: users, setData: setUsers, loading, error} = useAxiosOnMount("/api/users");
+
+
+  const deleteUsers = async (id) => {
+    try {
+      await axios.delete(`/api/users/${id}`)
+      const newUsers = users.filter((u)=>(u.id !== id))
+      setUsers(newUsers)
+    } catch (error) {
+      
+    }
+  }
 
   const renderUsers = () => {
 
@@ -27,6 +39,7 @@ export default function Users(props) {
       data = {u}
       key = {u.id}
       loc = "users"
+      del = {deleteUsers}
       />
       )
     })

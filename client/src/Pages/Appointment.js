@@ -1,12 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LoadingIndicator from "../Components/LoadingIndicator";
 import useAxiosOnMount from "../Components/useAxiosOnMount";
 import ErrorMsg from "../Components/ErrorMsg"
 import Cards from "../Components/Cards";
 import { Grid } from "semantic-ui-react";
+import axios from "axios";
 
 export default function Appointments(props) {
-  const { data: appointments, loading, error} = useAxiosOnMount("/api/appointments");
+  
+  const { data: appointments, setData: setAppointments,loading, error} = useAxiosOnMount("/api/appointments");
+  
+  const deleteAppointment = async (id) => {
+    try {
+      await axios.delete(`/api/appointments/${id}`)
+      const newApp = appointments.filter((a)=>(a.id !== id))
+      setAppointments(newApp)
+    } catch (error) {
+      
+    }
+  }
+  
+  const updateAppointments = async (appointment) =>{
+    try {
+      let res = await axios.put(`/api/appointments/${appointment.id}`, appointment);
+      let newAppointments = appointments.map((a) => (a.id === appointment.id ? appointment: a));
+      setAppointments(newAppointments)
+    } catch (err) {
+      console.log(err)
+    };
+  };
 
   const renderAppointments = () => {
 
@@ -30,13 +52,16 @@ export default function Appointments(props) {
       data = {a}
       key = {a.id}
       loc = "appointment"
+      del = {deleteAppointment}
+      update = {updateAppointments}
       />
       </Grid.Column>
 
       )
     })
-    
   }
+
+
 
   return (
     <div>

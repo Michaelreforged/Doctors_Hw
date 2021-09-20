@@ -1,8 +1,8 @@
 import { Button, ButtonGroup, Card } from "semantic-ui-react";
+import Appointments from "../Pages/Appointment";
 import { dayOfWeek, month } from "./DateFormat";
 
-const Cards = ({data, loc}) => {
-  console.log(data)
+const Cards = ({data, loc, del, update}) => {
 
   if(loc === "appointment"){
     const date = new Date(data.date);
@@ -21,7 +21,7 @@ const Cards = ({data, loc}) => {
           <Button color='green'>
             Edit
           </Button>
-          <Button color='red'>
+          <Button onClick={() => del(data.id)} color='red'>
             Delete
           </Button>
         </div>
@@ -42,7 +42,7 @@ const Cards = ({data, loc}) => {
           <Button color='green'>
             Edit
           </Button>
-          <Button  color='red'>
+          <Button onClick={() => del(data.id)} color='red'>
             Delete
           </Button>
         </ButtonGroup>
@@ -64,7 +64,7 @@ const Cards = ({data, loc}) => {
           <Button color='green'>
             Edit
           </Button>
-          <Button  color='red'>
+          <Button onClick={() => del(data.id)} color='red'>
             Delete
           </Button>
         </ButtonGroup>

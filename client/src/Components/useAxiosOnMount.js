@@ -24,7 +24,7 @@ const useAxiosOnMount = (url) => {
     }
   }
   
-  return{data,loading,error}
+  return{data,setData,loading,error}
 }
 
 
